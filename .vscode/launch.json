@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug cur file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            // Add environment variables needed for SYCL runtime if not set globally
+            "environment": [
+                {
+                    "name": "SYCL_PI_LEVEL_ZERO_USE_IMMEDIATE_COMMANDLISTS",
+                    "value": "1" // Or CPU if you want to force CPU execution for debugging
+                },
+                {
+                    "name": "ONEAPI_DEVICE_SELECTOR",
+                    "value": "level_zero:0;level_zero:1" // Adjust this path
+                }
+            ],
+            "preLaunchTask": "C/C++: dpcpp build active file"
+        }
+    ]
+}
